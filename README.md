@@ -1,1 +1,1 @@
-portfolio of full stack web development for Ogaga Ejairu
+Welcome to my portfolio! I'm a passionate Full Stack Web Developer focused on building modern, scalable, and user-friendly web applications.
