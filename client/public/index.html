@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ogaga Ejairu | Full Stack Developer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header>
+    <nav>
+      <h2>Ogaga Ejairu</h2>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <h1>Full Stack Web Developer</h1>
+      <p>I build modern, scalable and responsive web applications.</p>
+      <a href="#projects" class="btn">View My Work</a>
+      <div class="hero-contact">
+        <a href="mailto:ejairuogaga@gmail.com">📧 ejairuogaga@gmail.com</a>
+        <a href="tel:+2347048666541">📞 +234 704 866 6541</a>
+      </div>
+      <img src="tech1.png" alt="Ogaga Ejairu in tech office" class="hero-photo">
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m <strong>Ogaga Ejairu</strong>, a Full Stack Web Developer who builds responsive and scalable web applications. I specialize in
+      creating complete systems—from user-friendly interfaces to secure back-end functionality—focused on solving real-world
+      problems.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"><span>HTML</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"><span>CSS</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><span>JavaScript</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><span>React</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"><span>Node.js</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express" style="filter:invert(1)"><span>Express</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"><span>MongoDB</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"><span>MySQL</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><span>Git &amp; GitHub</span></div>
+      <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" alt="Vite"><span>Vite</span></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+
+      <!-- Agro E-commerce -->
+      <div class="project-card">
+        <img class="project-cover" src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=340&fit=crop" alt="Agro E-commerce Website">
+        <div class="project-body">
+          <h3>Agro E-commerce Website</h3>
+          <p>Online platform for buying and selling agricultural products. Features product listings, shopping cart, order management, and farmer-to-buyer direct sales.</p>
+          <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&h=500&fit=crop', 'Fresh Farm Produce')">
+              <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&h=240&fit=crop" alt="Fresh Farm Produce">
+              <span>Fresh Farm Produce</span>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&h=500&fit=crop', 'Farmer Marketplace')">
+              <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&h=240&fit=crop" alt="Farmer Marketplace">
+              <span>Farmer Marketplace</span>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&h=500&fit=crop', 'Order Management')">
+              <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=240&fit=crop" alt="Order Management">
+              <span>Order Management</span>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=500&fit=crop', 'Agricultural Products')">
+              <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop" alt="Agricultural Products">
+              <span>Agricultural Products</span>
+            </div>
+          </div>
+          <div class="tags">
+            <span>React</span><span>Node.js</span><span>MongoDB</span><span>Express</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/gaga477" target="_blank">GitHub</a>
+            <a href="https://example.com" target="_blank">Live</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skincare Store -->
+      <div class="project-card">
+        <img class="project-cover" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&h=340&fit=crop" alt="Skincare Store">
+        <div class="project-body">
+          <h3>Skincare Store</h3>
+          <p>A modern skincare e-commerce platform with product filtering, user authentication, and a clean responsive UI.</p>
+          <div class="tags">
+            <span>React</span><span>Node.js</span><span>MongoDB</span><span>CSS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/gaga477" target="_blank">GitHub</a>
+            <a href="https://example.com" target="_blank">Live</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Website -->
+      <div class="project-card">
+        <img class="project-cover" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=340&fit=crop" alt="Portfolio Website">
+        <div class="project-body">
+          <h3>Portfolio Website</h3>
+          <p>A responsive personal portfolio website showcasing projects and skills. Built with React and Node.js with a contact form and MongoDB backend.</p>
+          <div class="tags">
+            <span>React</span><span>Node.js</span><span>MongoDB</span><span>Express</span><span>vite</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/gaga477/portfolio" target="_blank">GitHub</a>
+            <a href="https://example.com" target="_blank">Live</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <button onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-wrapper">
+      <div class="contact-info-box">
+        <h3>Get In Touch</h3>
+        <p>Have a project in mind or want to work together?<br>I'd love to hear from you — feel free to reach out<br>and let's build something great together.</p>
+        <a href="mailto:ejairuogaga@gmail.com">📧 ejairuogaga@gmail.com</a>
+        <a href="tel:+2347048666541">📞 +234 704 866 6541</a>
+        <a href="https://github.com/gaga477" target="_blank">🐙 github.com/gaga477</a>
+        <a href="https://www.linkedin.com/in/ogaga-ejairu-27b9103ab" target="_blank">💼 linkedin.com/in/ogaga-ejairu</a>
+      </div>
+      <div class="contact-form-box">
+        <form id="contact-form">
+          <input id="name" type="text" placeholder="Your Name" required>
+          <input id="email" type="email" placeholder="Your Email" required>
+          <textarea id="message" placeholder="Your Message"></textarea>
+          <button type="submit">Send Message</button>
+          <p id="form-msg" style="margin-top:4px;"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Ogaga Ejairu | Full Stack Developer</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

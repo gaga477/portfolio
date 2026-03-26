@@ -1,0 +1,29 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "portfolio of full stack web development for Ogaga Ejairu",
+  "homepage": "https://github.com/gaga477/portfolio#readme",
+  "bugs": {
+    "url": "https://github.com/gaga477/portfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaga477/portfolio.git"
+  },
+  "license": "ISC",
+  "author": "Ogaga",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+     "dev": "vite",
+    "build": "vite build",
+    "start": "vite preview"
+  },
+  "dependencies": {
+    "vite": "^8.0.2"
+  }
+}
+
+
