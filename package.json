@@ -16,10 +16,10 @@
   "main": "index.js",
   "scripts": {
     "server": "cd server && npm start",
-    "client": "cd client && npm start",
-     "dev": "vite",
-    "build": "vite build",
-    "start": "vite preview"
+    "client": "cd client && npm run dev",
+    "dev": "cd client && vite",
+    "build": "cd client && vite build",
+    "start": "cd client && vite preview"
   },
   "dependencies": {
     "vite": "^8.0.2"
