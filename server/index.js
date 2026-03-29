@@ -54,12 +54,15 @@ transporter.verify((err) => {
 
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
+  if (!name || !email || !message) return res.status(400).json({ message: "All fields required" });
   try {
-    const newContact = new Contact({ name, email, message });
-    await newContact.save();
+    // Save to DB (non-blocking — don't fail if DB is down)
+    new Contact({ name, email, message }).save().catch(err => console.error("DB save error:", err.message));
+
     await transporter.sendMail({
-      from: `"${name}" <${process.env.EMAIL_USER}>`,
-      to: "ejairuogaga@gmail.com",
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
+      replyTo: email,
       subject: `New Portfolio Message from ${name}`,
       html: `<p><strong>Name:</strong> ${name}</p>
              <p><strong>Email:</strong> ${email}</p>
@@ -67,8 +70,8 @@ app.post("/api/contact", async (req, res) => {
     });
     res.json({ message: "Sent" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to send" });
+    console.error("Contact error:", err.message);
+    res.status(500).json({ message: err.message });
   }
 });
 
