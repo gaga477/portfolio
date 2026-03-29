@@ -75,7 +75,7 @@ export default function App() {
   const [lightbox, setLightbox] = useState(null);
 
   useEffect(() => {
-    fetch("/api/projects")
+    fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects`)
       .then(r => r.json())
       .then(data => { if (data.length) setProjects(data); })
       .catch(() => {});
@@ -84,7 +84,7 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
-    const res = await fetch("/api/contact", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
