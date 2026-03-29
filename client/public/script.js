@@ -8,7 +8,7 @@ function closeLightbox() {
   document.getElementById("lightbox").classList.remove("active");
 }
 
-.addEventListener("submit", async function(e) {
+document.getElementById("contact-form").addEventListener("submit", async function(e) {
   e.preventDefault();
   const msg = document.getElementById("form-msg");
   const btn = this.querySelector("button");
