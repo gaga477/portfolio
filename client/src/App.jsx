@@ -18,6 +18,16 @@ const fallbackProjects = [
   },
   {
     id: 2,
+    title: "Green Earth Initiative",
+    description: "A full-stack eco gamification platform where users complete real-world environmental tasks, earn rewards, and redeem them in a built-in marketplace.",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Flutter", "Paystack API"],
+    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=340&fit=crop", // Placeholder eco image
+    gallery: [],
+    github: "https://github.com/gaga477",
+    live: "https://example.com"
+  },
+  {
+    id: 3,
     title: "Skincare Store",
     description: "A modern skincare e-commerce platform with product filtering, user authentication, and a clean responsive UI.",
     tags: ["React", "Node.js", "MongoDB", "CSS"],
@@ -27,7 +37,7 @@ const fallbackProjects = [
     live: "https://example.com"
   },
   {
-    id: 3,
+    id: 4,
     title: "Portfolio Website",
     description: "A responsive personal portfolio website showcasing projects and skills. Built with React and Node.js with a contact form and MongoDB backend.",
     tags: ["React", "Node.js", "MongoDB", "Express"],
@@ -75,16 +85,23 @@ export default function App() {
   const [lightbox, setLightbox] = useState(null);
 
   useEffect(() => {
-    fetch("/.netlify/functions/contact")
+    fetch("/api/projects")
       .then(r => r.json())
-      .then(data => { if (data.length) setProjects(data); })
-      .catch(() => {});
+      .then(data => { 
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      })
+      .catch(() => {
+        // If API fails, use fallback projects
+        console.log("Using fallback projects");
+      });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
-    const res = await fetch("/.netlify/functions/contact", {
+    const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
@@ -189,7 +206,7 @@ export default function App() {
           {sent && <p className="success-msg">✓ Message sent successfully!</p>}
           {error && <p style={{ color: "red" }}>✗ Failed to send. Please try again.</p>}
         </form>
-      </section>
+      </section> 
 
       <footer>
         <p>© {new Date().getFullYear()} Ogaga Ejairu. Built with React & Node.js</p>

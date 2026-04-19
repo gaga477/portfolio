@@ -78,7 +78,8 @@ app.post("/api/contact", async (req, res) => {
 app.get("/api/seed", async (req, res) => {
   await Project.create([
     { title: "Agro E-commerce", description: "Online farm product store" },
-    { title: "Auth System", description: "JWT login system" }
+    { title: "Auth System", description: "JWT login system" },
+    { title: "Green Earth Initiative", description: "Eco gamification platform with tasks, rewards, and marketplace" }
   ]);
   res.send("Seeded");
 });
