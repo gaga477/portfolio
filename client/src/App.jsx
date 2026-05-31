@@ -4,47 +4,56 @@ const fallbackProjects = [
   {
     id: 1,
     title: "Agro E-commerce Website",
-    description: "Online platform for buying and selling agricultural products. Features product listings, shopping cart, order management, and farmer-to-buyer direct sales.",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=340&fit=crop",
+    
+  },
+
+  {
+    id: 2,
+    title: "Green Earth Initiative",
+  
+  },
+
+  {
+    id: 5,
+    title: "Zunny Mini Mart",
+    description:
+      "A modern full-stack mini mart and grocery e-commerce platform with product management, shopping cart, secure checkout, customer authentication, inventory tracking, and responsive mobile-first design.",
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Paystack API",
+      "JWT Auth"
+    ],
+    image:
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=340&fit=crop",
     gallery: [
-      { url: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&h=240&fit=crop", caption: "Fresh Farm Produce" },
-      { url: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&h=240&fit=crop", caption: "Farmer Marketplace" },
-      { url: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=240&fit=crop", caption: "Order Management" },
-      { url: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop", caption: "Agricultural Products" }
+      {
+        url: "https://images.unsplash.com/photo-1516594798947-e65505dbb29d?w=400&h=240&fit=crop",
+        caption: "Modern Grocery Store"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=400&h=240&fit=crop",
+        caption: "Online Shopping Experience"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400&h=240&fit=crop",
+        caption: "Secure Checkout System"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400&h=240&fit=crop",
+        caption: "Inventory & Orders"
+      }
     ],
     github: "https://github.com/gaga477",
     live: "https://example.com"
   },
-  {
-    id: 2,
-    title: "Green Earth Initiative",
-    description: "A full-stack eco gamification platform where users complete real-world environmental tasks, earn rewards, and redeem them in a built-in marketplace.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Flutter", "Paystack API"],
-    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=340&fit=crop", // Placeholder eco image
-    gallery: [],
-    github: "https://github.com/gaga477",
-    live: "https://example.com"
-  },
+
   {
     id: 3,
     title: "Skincare Store",
-    description: "A modern skincare e-commerce platform with product filtering, user authentication, and a clean responsive UI.",
-    tags: ["React", "Node.js", "MongoDB", "CSS"],
-    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&h=340&fit=crop",
-    gallery: [],
-    github: "https://github.com/gaga477",
-    live: "https://example.com"
-  },
-  {
-    id: 4,
-    title: "Portfolio Website",
-    description: "A responsive personal portfolio website showcasing projects and skills. Built with React and Node.js with a contact form and MongoDB backend.",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=340&fit=crop",
-    gallery: [],
-    github: "https://github.com/gaga477/portfolio",
-    live: "https://example.com"
+    
   }
 ];
 
