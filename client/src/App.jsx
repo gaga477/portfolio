@@ -54,7 +54,8 @@ const fallbackProjects = [
       "Paystack API",
       "JWT Auth"
     ],
-    image: "/zunny.png",
+    image:
+      "/zunny.png",
     gallery: [
       {
         url: "https://images.unsplash.com/photo-1516594798947-e65505dbb29d?w=400&h=240&fit=crop",
