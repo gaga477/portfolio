@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
+const serverPkg = require("./package.json");
 
 const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
@@ -75,6 +76,18 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+app.get("/health", (req, res) => {
+  const dbReadyState = mongoose.connection.readyState;
+  const dbStatus = dbReadyState === 1 ? "connected" : dbReadyState === 2 ? "connecting" : dbReadyState === 3 ? "disconnecting" : "disconnected";
+
+  res.json({
+    status: "ok",
+    version: serverPkg.version,
+    uptimeSeconds: Math.floor(process.uptime()),
+    dbStatus
+  });
+});
+
 app.get("/api/seed", async (req, res) => {
   await Project.create([
     { title: "Agro E-commerce", description: "Online farm product store" },
@@ -88,5 +101,5 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || process.env.APP_PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

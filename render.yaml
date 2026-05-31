@@ -1,0 +1,18 @@
+services:
+  - type: static
+    name: portfolio-frontend
+    plan: free
+    buildCommand: cd client && npm install && npm run build
+    publishPath: client/dist
+
+  - type: web
+    name: portfolio-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: PORT
+        value: "3001"
+    healthCheckPath: /health
+    healthCheckTimeoutSeconds: 10

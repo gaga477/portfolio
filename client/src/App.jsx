@@ -152,8 +152,10 @@ export default function App() {
   const [error, setError] = useState(false);
   const [lightbox, setLightbox] = useState(null);
 
+  const apiBase = import.meta.env.VITE_API_URL || "";
+
   useEffect(() => {
-    fetch("/api/projects")
+    fetch(`${apiBase}/api/projects`)
       .then(r => r.json())
       .then(data => { 
         if (data && data.length > 0) {
@@ -164,12 +166,12 @@ export default function App() {
         // If API fails, use fallback projects
         console.log("Using fallback projects");
       });
-  }, []);
+  }, [apiBase]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
-    const res = await fetch("/api/contact", {
+    const res = await fetch(`${apiBase}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
