@@ -4,13 +4,23 @@ const fallbackProjects = [
   {
     id: 1,
     title: "Agro E-commerce Website",
-    
+    description: "A responsive agriculture e-commerce platform showcasing products and services.",
+    tags: [],
+    gallery: [],
+    image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600&h=340&fit=crop",
+    github: "https://github.com/gaga477",
+    live: "https://example.com"
   },
 
   {
     id: 2,
     title: "Green Earth Initiative",
-  
+    description: "A sustainability-focused platform for environmental projects and community engagement.",
+    tags: [],
+    gallery: [],
+    image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=340&fit=crop",
+    github: "https://github.com/gaga477",
+    live: "https://example.com"
   },
 
   {
@@ -53,7 +63,38 @@ const fallbackProjects = [
   {
     id: 3,
     title: "Skincare Store",
-    
+    description:
+      "A modern e-commerce platform for selling skincare products with a focus on natural ingredients and sustainable practices.",
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Paystack API",
+      "JWT Auth"
+    ],
+    image:
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=340&fit=crop",
+    gallery: [
+      {
+        url: "https://images.unsplash.com/photo-1516594798947-e65505dbb29d?w=400&h=240&fit=crop",
+        caption: "Modern Skincare Store"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=400&h=240&fit=crop",
+        caption: "Online Shopping Experience"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400&h=240&fit=crop",
+        caption: "Secure Checkout System"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400&h=240&fit=crop",
+        caption: "Inventory & Orders"
+      }
+    ],
+    github: "https://github.com/gaga477",
+    live: "https://example.com"
   }
 ];
 
@@ -64,9 +105,9 @@ function ProjectCard({ p, onPhotoClick }) {
       <div className="project-card-body">
         <h3>{p.title}</h3>
         <p>{p.description}</p>
-        {p.gallery.length > 0 && (
+        {(p.gallery?.length > 0) && (
           <div className="gallery-grid">
-            {p.gallery.map((g, i) => (
+            {(p.gallery || []).map((g, i) => (
               <div key={i} className="gallery-grid-item" onClick={() => onPhotoClick(g)}>
                 <img src={g.url} alt={g.caption} />
                 <span>{g.caption}</span>
@@ -75,7 +116,7 @@ function ProjectCard({ p, onPhotoClick }) {
           </div>
         )}
         <div className="tags">
-          {p.tags.map(t => <span key={t} className="skill-tag">{t}</span>)}
+          {(p.tags || []).map(t => <span key={t} className="skill-tag">{t}</span>)}
         </div>
         <div className="project-links">
           <a href={p.github} target="_blank" rel="noreferrer">GitHub</a>
@@ -165,7 +206,7 @@ export default function App() {
                   <h3>{p.title}</h3>
                   <p>{p.description}</p>
                   <div className="tags">
-                    {p.tags.map(t => <span key={t} className="skill-tag">{t}</span>)}
+                    {(p.tags || []).map(t => <span key={t} className="skill-tag">{t}</span>)}
                   </div>
                   <div className="project-links">
                     <a href={p.github} target="_blank" rel="noreferrer">GitHub</a>
