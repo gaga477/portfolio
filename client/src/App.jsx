@@ -262,18 +262,25 @@ export default function App() {
 
       <section id="contact">
         <h2>Contact</h2>
-        <div className="contact-info">
-          <a href="mailto:ejairuogaga@gmail.com">📧 ejairuogaga@gmail.com</a>
-          <a href="tel:+2347048666541">📞 +234 704 866 6541</a>
+        <div className="contact-container">
+          <div className="contact-content">
+            <div className="contact-info">
+              <a href="mailto:ejairuogaga@gmail.com">📧 ejairuogaga@gmail.com</a>
+              <a href="tel:+2347048666541">📞 +234 704 866 6541</a>
+            </div>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <input placeholder="Your Name" value={form.name} required onChange={e => setForm({ ...form, name: e.target.value })} />
+              <input placeholder="Your Email" type="email" value={form.email} required onChange={e => setForm({ ...form, email: e.target.value })} />
+              <textarea placeholder="Your Message" value={form.message} required onChange={e => setForm({ ...form, message: e.target.value })} />
+              <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Send Message</button>
+              {sent && <p className="success-msg">✓ Message sent successfully!</p>}
+              {error && <p style={{ color: "red" }}>✗ Failed to send. Please try again.</p>}
+            </form>
+          </div>
+          <div className="contact-image">
+            <img src="/tech1.png" alt="Technology" />
+          </div>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input placeholder="Your Name" value={form.name} required onChange={e => setForm({ ...form, name: e.target.value })} />
-          <input placeholder="Your Email" type="email" value={form.email} required onChange={e => setForm({ ...form, email: e.target.value })} />
-          <textarea placeholder="Your Message" value={form.message} required onChange={e => setForm({ ...form, message: e.target.value })} />
-          <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Send Message</button>
-          {sent && <p className="success-msg">✓ Message sent successfully!</p>}
-          {error && <p style={{ color: "red" }}>✗ Failed to send. Please try again.</p>}
-        </form>
       </section> 
 
       <footer>

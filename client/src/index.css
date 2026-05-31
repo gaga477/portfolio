@@ -414,6 +414,29 @@ section h2::after {
   max-width: 560px;
 }
 
+.contact-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 32px;
+}
+
+.contact-content {
+  flex: 1;
+}
+
+.contact-image {
+  flex: 0 0 auto;
+  max-width: 300px;
+}
+
+.contact-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 .contact-form input,
 .contact-form textarea {
   background: #111;
