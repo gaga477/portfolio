@@ -1,29 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 
+const initialReviews = [
+  {
+    name: "John Smith",
+    rating: 5,
+    comment: "Excellent developer. Delivered my hotel website on time.",
+  },
+  {
+    name: "Sarah Johnson",
+    rating: 4,
+    comment: "Professional and easy to work with.",
+  },
+];
+
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState([
-    {
-      name: "John Smith",
-      rating: 5,
-      comment: "Excellent developer. Delivered my hotel website on time.",
-    },
-    {
-      name: "Sarah Johnson",
-      rating: 4,
-      comment: "Professional and easy to work with.",
-    },
-  ]);
+  const [reviews, setReviews] = useState(() => {
+    try {
+      const saved = localStorage.getItem("reviews");
+      return saved ? JSON.parse(saved) : initialReviews;
+    } catch (err) {
+      return initialReviews;
+    }
+  });
 
   const [name, setName] = useState("");
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
+  useEffect(() => {
+    try {
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+    } catch (err) {
+      // ignore write errors
+    }
+  }, [reviews]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newReview = {
-      name,
+      name: name || "Anonymous",
       rating,
       comment,
     };
@@ -36,24 +53,19 @@ export default function ReviewsSection() {
   };
 
   const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) /
-    reviews.length;
+    reviews.reduce((acc, review) => acc + (review.rating || 0), 0) /
+    (reviews.length || 1);
 
   return (
     <section className="max-w-5xl mx-auto py-20 px-6">
       <h2 className="text-3xl font-bold mb-4">Customer Reviews</h2>
 
       <div className="mb-8">
-        <h3 className="text-xl font-semibold">
-          ⭐ {averageRating.toFixed(1)} / 5
-        </h3>
+        <h3 className="text-xl font-semibold">⭐ {averageRating.toFixed(1)} / 5</h3>
         <p>{reviews.length} Reviews</p>
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-slate-800 p-6 rounded-2xl mb-10"
-      >
+      <form onSubmit={handleSubmit} className="bg-slate-800 p-6 rounded-2xl mb-10">
         <input
           type="text"
           placeholder="Your Name"
@@ -84,24 +96,18 @@ export default function ReviewsSection() {
           required
         />
 
-        <button
-          type="submit"
-          className="bg-green-600 px-6 py-3 rounded-xl"
-        >
+        <button type="submit" className="bg-green-600 px-6 py-3 rounded-xl">
           Submit Review
         </button>
       </form>
 
       <div className="grid gap-6">
         {reviews.map((review, index) => (
-          <div
-            key={index}
-            className="bg-slate-800 p-6 rounded-2xl shadow"
-          >
+          <div key={index} className="bg-slate-800 p-6 rounded-2xl shadow">
             <h4 className="font-semibold">{review.name}</h4>
 
             <div className="flex my-2">
-              {[...Array(review.rating)].map((_, i) => (
+              {[...Array(review.rating || 0)].map((_, i) => (
                 <Star key={i} size={18} fill="currentColor" />
               ))}
             </div>
