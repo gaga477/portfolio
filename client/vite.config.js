@@ -13,6 +13,8 @@ export default defineConfig({
     }
   },
   preview: {
-    allowedHosts: ['portfolio-qf8o.onrender.com']
+    host: '0.0.0.0',
+    port: Number(process.env.PORT || 4173),
+    allowedHosts: 'auto'
   }
 })
