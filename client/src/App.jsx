@@ -16,7 +16,7 @@ const fallbackProjects = [
         caption: "Online marketplace for farmers"
       }
     ],
-    image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600&h=340&fit=crop",
+    image: "/helen.png",
     github: "https://github.com/gaga477",
     live: "https://example.com"
   },
