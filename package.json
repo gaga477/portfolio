@@ -20,7 +20,7 @@
     "dev": "cd client && vite",
     "build": "cd client && vite build",
     "preview": "cd client && vite preview",
-    "start": "cd client && vite preview --host 0.0.0.0 --port ${PORT:-4173}",
+    "start": "cd client && vite preview --host 0.0.0.0",
     "curl": "curl http://localhost:3001/api/seed"
   },
   "dependencies": {
