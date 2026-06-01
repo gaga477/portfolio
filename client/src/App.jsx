@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ReviewsSection from "./ReviewsSection";
 
 const fallbackProjects = [
   {
@@ -261,6 +262,8 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      <ReviewsSection />
 
       <section id="contact">
         <h2>Contact</h2>
