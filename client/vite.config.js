@@ -11,5 +11,8 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  preview: {
+    allowedHosts: ['portfolio-qf8o.onrender.com']
   }
 })
