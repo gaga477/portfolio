@@ -33,6 +33,29 @@ const Contact = mongoose.model("Contact", {
   message: String
 });
 
+const Review = mongoose.model("Review", {
+  name: String,
+  rating: Number,
+  comment: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+app.get("/api/reviews", async (req, res) => {
+  const reviews = await Review.find().sort({ createdAt: -1 });
+  res.json(reviews);
+});
+
+app.post("/api/reviews", async (req, res) => {
+  const { name, rating, comment } = req.body;
+  if (!name || !rating || !comment) return res.status(400).json({ message: "All fields required" });
+  try {
+    const review = await Review.create({ name, rating, comment });
+    res.json(review);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 app.get("/api/projects", async (req, res) => {
   const projects = await Project.find();
   res.json(projects);
