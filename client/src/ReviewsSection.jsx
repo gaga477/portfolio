@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
 
 const API = import.meta.env.VITE_API_URL || "";
+const STARS = [5, 4, 3, 2, 1];
 
 export default function ReviewsSection() {
   const [reviews, setReviews] = useState([]);
-  const [name, setName] = useState("");
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("");
+  const [form, setForm] = useState({ name: "", rating: 5, comment: "" });
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
@@ -23,12 +21,12 @@ export default function ReviewsSection() {
     const res = await fetch(`${API}/api/reviews`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, rating, comment })
+      body: JSON.stringify(form)
     });
     if (res.ok) {
       const newReview = await res.json();
       setReviews([newReview, ...reviews]);
-      setName(""); setRating(5); setComment("");
+      setForm({ name: "", rating: 5, comment: "" });
       setStatus("success");
     } else {
       setStatus("error");
@@ -40,46 +38,59 @@ export default function ReviewsSection() {
     : "0.0";
 
   return (
-    <section className="max-w-5xl mx-auto py-20 px-6">
-      <h2 className="text-3xl font-bold mb-4">Customer Reviews</h2>
+    <section id="reviews">
+      <h2>Client Reviews</h2>
 
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold">⭐ {avg} / 5</h3>
-        <p>{reviews.length} Reviews</p>
+      <div className="reviews-meta">
+        <span className="reviews-avg">⭐ {avg} / 5</span>
+        <span className="reviews-count">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-slate-800 p-6 rounded-2xl mb-10">
-        <input
-          type="text" placeholder="Your Name" required
-          className="w-full p-3 rounded mb-4 text-black"
-          value={name} onChange={e => setName(e.target.value)}
-        />
-        <select
-          className="w-full p-3 rounded mb-4 text-black"
-          value={rating} onChange={e => setRating(Number(e.target.value))}
-        >
-          {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} Star</option>)}
-        </select>
-        <textarea
-          placeholder="Write your review..." required rows="4"
-          className="w-full p-3 rounded mb-4 text-black"
-          value={comment} onChange={e => setComment(e.target.value)}
-        />
-        <button type="submit" className="bg-green-600 px-6 py-3 rounded-xl">Submit Review</button>
-        {status === "success" && <p className="mt-3 text-green-400">✓ Review submitted!</p>}
-        {status === "error" && <p className="mt-3 text-red-400">✗ Failed to submit. Try again.</p>}
-      </form>
+      <div className="reviews-layout">
+        <form className="review-form" onSubmit={handleSubmit}>
+          <h3>Leave a Review</h3>
+          <input
+            placeholder="Your Name"
+            required
+            value={form.name}
+            onChange={e => setForm({ ...form, name: e.target.value })}
+          />
+          <select
+            value={form.rating}
+            onChange={e => setForm({ ...form, rating: Number(e.target.value) })}
+          >
+            {STARS.map(n => <option key={n} value={n}>{n} Star{n !== 1 ? "s" : ""}</option>)}
+          </select>
+          <textarea
+            placeholder="Share your experience..."
+            required
+            value={form.comment}
+            onChange={e => setForm({ ...form, comment: e.target.value })}
+          />
+          <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>
+            Submit Review
+          </button>
+          {status === "success" && <p className="success-msg">✓ Review submitted!</p>}
+          {status === "error" && <p style={{ color: "red" }}>✗ Failed to submit. Try again.</p>}
+        </form>
 
-      <div className="grid gap-6">
-        {reviews.map((r, i) => (
-          <div key={r._id || i} className="bg-slate-800 p-6 rounded-2xl shadow">
-            <h4 className="font-semibold">{r.name}</h4>
-            <div className="flex my-2">
-              {[...Array(r.rating)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+        <div className="reviews-list">
+          {reviews.length === 0 && <p style={{ color: "#555" }}>No reviews yet. Be the first!</p>}
+          {reviews.map((r, i) => (
+            <div key={r._id || i} className="review-card">
+              <div className="review-card-header">
+                <div className="review-avatar">{r.name.charAt(0).toUpperCase()}</div>
+                <div>
+                  <p className="review-name">{r.name}</p>
+                  <div className="review-stars">
+                    {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+                  </div>
+                </div>
+              </div>
+              <p className="review-comment">{r.comment}</p>
             </div>
-            <p className="text-slate-300">{r.comment}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
