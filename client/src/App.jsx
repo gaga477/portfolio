@@ -9,7 +9,7 @@ const fallbackProjects = [
     tags: ["React", "Node.js", "Express", "MongoDB", "E-commerce"],
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1493244040629-496f6d136cc3?w=400&h=240&fit=crop",
+        url: "https://images.unsplash.com/photo-1488459716781-41ccceffe4d4?w=400&h=240&fit=crop",
         caption: "Fresh farm produce"
       },
       {
@@ -33,7 +33,7 @@ const fallbackProjects = [
         caption: "Community tree planting"
       },
       {
-        url: "https://images.unsplash.com/photo-1486438031753-781b31d0c67e?w=400&h=240&fit=crop",
+        url: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=240&fit=crop",
         caption: "Eco-friendly initiatives"
       }
     ],
