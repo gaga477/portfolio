@@ -63,7 +63,7 @@ const fallbackProjects = [
         caption: "Storefront product browsing"
       },
       {
-        url: "https://images.unsplash.com/photo-1560839148-ae9e6b80e8bc?w=400&h=240&fit=crop",
+        url: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&h=240&fit=crop",
         caption: "Mobile shopping experience"
       },
       {
@@ -71,7 +71,7 @@ const fallbackProjects = [
         caption: "Cart and checkout flow"
       },
       {
-        url: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=400&h=240&fit=crop",
+        url: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&h=240&fit=crop",
         caption: "Inventory tracking dashboard"
       }
     ],
