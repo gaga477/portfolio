@@ -9,7 +9,21 @@ const serverPkg = require("./package.json");
 const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:5000", "null", process.env.CLIENT_URL].filter(Boolean),
+  origin: function(origin, callback) {
+    const allowed = [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:5000",
+      "https://portfolio-qf8o.onrender.com",
+      process.env.CLIENT_URL
+    ].filter(Boolean);
+    // Allow requests with no origin (curl, Postman, server-to-server)
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`));
+    }
+  },
   methods: ["GET", "POST"],
   credentials: true
 }));

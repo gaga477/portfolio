@@ -152,6 +152,7 @@ export default function App() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
   const [contactMsg, setContactMsg] = useState("");
+  const [sending, setSending] = useState(false);
   const [lightbox, setLightbox] = useState(null);
 
   const apiBase = import.meta.env.VITE_API_URL || "";
@@ -175,18 +176,26 @@ export default function App() {
     setError(false);
     setSent(false);
     setContactMsg("");
-    const res = await fetch(`${apiBase}/api/contact`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok) {
-      setSent(true);
-      setForm({ name: "", email: "", message: "" });
-    } else {
+    setSending(true);
+    try {
+      const res = await fetch(`${apiBase}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setSent(true);
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setError(true);
+        setContactMsg(data.message || "Failed to send. Please try again.");
+      }
+    } catch (err) {
       setError(true);
-      setContactMsg(data.message || "Failed to send. Please try again.");
+      setContactMsg("Could not reach the server. Please email me directly at ejairuogaga@gmail.com");
+    } finally {
+      setSending(false);
     }
   };
 
@@ -283,7 +292,9 @@ export default function App() {
               <input placeholder="Your Name" value={form.name} required onChange={e => setForm({ ...form, name: e.target.value })} />
               <input placeholder="Your Email" type="email" value={form.email} required onChange={e => setForm({ ...form, email: e.target.value })} />
               <textarea placeholder="Your Message" value={form.message} required onChange={e => setForm({ ...form, message: e.target.value })} />
-              <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Send Message</button>
+              <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }} disabled={sending}>
+                {sending ? "Sending…" : "Send Message"}
+              </button>
               {sent && <p className="success-msg">✓ Message sent successfully!</p>}
               {error && <p style={{ color: "red" }}>✗ {contactMsg || "Failed to send. Please try again."}</p>}
             </form>

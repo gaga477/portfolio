@@ -4,6 +4,9 @@ services:
     plan: free
     buildCommand: cd client && npm install && npm run build
     publishPath: client/dist
+    buildEnv:
+      - key: VITE_API_URL
+        value: https://portfolio-backend.onrender.com
 
   - type: web
     name: portfolio-backend
@@ -14,5 +17,7 @@ services:
     envVars:
       - key: PORT
         value: "3001"
+      - key: CLIENT_URL
+        value: https://portfolio-qf8o.onrender.com
     healthCheckPath: /health
     healthCheckTimeoutSeconds: 10
