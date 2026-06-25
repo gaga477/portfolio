@@ -585,6 +585,13 @@ footer {
   margin-bottom: 12px;
 }
 
+.review-date {
+  margin-left: auto;
+  color: #444;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
 .review-avatar {
   width: 42px;
   height: 42px;
