@@ -69,20 +69,8 @@ app.get("/api/projects", async (req, res) => {
   res.json(projects);
 });
 
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
-
-transporter.verify((err) => {
-  if (err) console.error("Email transporter error:", err.message);
-  else console.log("Email transporter ready");
-});
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
@@ -95,26 +83,38 @@ app.post("/api/contact", async (req, res) => {
     console.error("DB save error:", dbErr.message);
   }
 
-  // Then attempt to send email
+  // Send email via Resend (HTTPS — works on all hosts including Render free tier)
   try {
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
+    const { error } = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: [process.env.EMAIL_USER],
       replyTo: email,
       subject: `New Portfolio Message from ${name}`,
       html: `
-        <h2 style="color:#00d4ff">New Portfolio Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space:pre-wrap">${message}</p>
+        <div style="font-family:sans-serif;max-width:560px;margin:0 auto">
+          <h2 style="color:#00d4ff;border-bottom:2px solid #00d4ff;padding-bottom:8px">
+            New Portfolio Message
+          </h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Message:</strong></p>
+          <p style="background:#f5f5f5;padding:16px;border-radius:6px;white-space:pre-wrap">${message}</p>
+          <p style="color:#999;font-size:12px;margin-top:24px">
+            Sent from your portfolio contact form. Reply directly to this email to respond to ${name}.
+          </p>
+        </div>
       `
     });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return res.status(500).json({ message: "Email delivery failed, but your message was saved." });
+    }
+
     res.json({ message: "Sent" });
   } catch (err) {
-    console.error("Email send error:", err.message);
-    // Message is already saved in DB — tell the client it was received
-    res.status(500).json({ message: "Email delivery failed, but your message was saved. I will get back to you." });
+    console.error("Contact error:", err.message);
+    res.status(500).json({ message: "Email delivery failed, but your message was saved." });
   }
 });
 
