@@ -10,26 +10,32 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({
   origin: function(origin, callback) {
+    // In production the frontend is served from same origin — no CORS needed.
+    // Allow localhost origins for local dev, and no-origin requests (curl/Postman).
     const allowed = [
       "http://localhost:3000",
       "http://localhost:3001",
       "http://localhost:5000",
-      "https://portfolio-qf8o.onrender.com",
       process.env.CLIENT_URL
     ].filter(Boolean);
-    // Allow requests with no origin (curl, Postman, server-to-server)
     if (!origin || allowed.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error(`CORS blocked: ${origin}`));
+      // In production, same-origin requests have no Origin header — allow all
+      if (process.env.NODE_ENV === "production") {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
     }
   },
   methods: ["GET", "POST"],
   credentials: true
 }));
 
-// Serve static frontend
-app.use(express.static(require("path").join(__dirname, "../client/public")));
+// Serve built React frontend from client/dist
+const clientDist = path.join(__dirname, "../client/dist");
+app.use(express.static(clientDist));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/portfolio")
@@ -239,8 +245,9 @@ app.get("/api/seed", async (req, res) => {
   res.send("Seeded");
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
+// Catch-all: serve React app for any non-API route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 const PORT = process.env.PORT || process.env.APP_PORT || 3001;
