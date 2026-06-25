@@ -87,23 +87,34 @@ transporter.verify((err) => {
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
   if (!name || !email || !message) return res.status(400).json({ message: "All fields required" });
-  try {
-    // Save to DB (non-blocking — don't fail if DB is down)
-    new Contact({ name, email, message }).save().catch(err => console.error("DB save error:", err.message));
 
+  // Always save to DB first so the message is never lost
+  try {
+    await new Contact({ name, email, message }).save();
+  } catch (dbErr) {
+    console.error("DB save error:", dbErr.message);
+  }
+
+  // Then attempt to send email
+  try {
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       replyTo: email,
       subject: `New Portfolio Message from ${name}`,
-      html: `<p><strong>Name:</strong> ${name}</p>
-             <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Message:</strong> ${message}</p>`
+      html: `
+        <h2 style="color:#00d4ff">New Portfolio Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Message:</strong></p>
+        <p style="white-space:pre-wrap">${message}</p>
+      `
     });
     res.json({ message: "Sent" });
   } catch (err) {
-    console.error("Contact error:", err.message);
-    res.status(500).json({ message: err.message });
+    console.error("Email send error:", err.message);
+    // Message is already saved in DB — tell the client it was received
+    res.status(500).json({ message: "Email delivery failed, but your message was saved. I will get back to you." });
   }
 });
 

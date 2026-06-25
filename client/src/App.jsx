@@ -151,6 +151,7 @@ export default function App() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
+  const [contactMsg, setContactMsg] = useState("");
   const [lightbox, setLightbox] = useState(null);
 
   const apiBase = import.meta.env.VITE_API_URL || "";
@@ -172,16 +173,20 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
+    setSent(false);
+    setContactMsg("");
     const res = await fetch(`${apiBase}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
     });
+    const data = await res.json().catch(() => ({}));
     if (res.ok) {
       setSent(true);
       setForm({ name: "", email: "", message: "" });
     } else {
       setError(true);
+      setContactMsg(data.message || "Failed to send. Please try again.");
     }
   };
 
@@ -280,7 +285,7 @@ export default function App() {
               <textarea placeholder="Your Message" value={form.message} required onChange={e => setForm({ ...form, message: e.target.value })} />
               <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Send Message</button>
               {sent && <p className="success-msg">✓ Message sent successfully!</p>}
-              {error && <p style={{ color: "red" }}>✗ Failed to send. Please try again.</p>}
+              {error && <p style={{ color: "red" }}>✗ {contactMsg || "Failed to send. Please try again."}</p>}
             </form>
           </div>
           <div className="contact-image">
